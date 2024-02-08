@@ -1,1 +1,50 @@
+CREATE DATABASE IF NOT EXISTS pet_events;
 
+USE pet_events;
+
+CREATE TABLE pet (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL,
+    owner VARCHAR(20) DEFAULT NULL,
+    species VARCHAR(20) DEFAULT NULL,
+    sex ENUM('m', 'f') DEFAULT NULL,
+    birth_date DATE DEFAULT NULL,
+    death_date DATE DEFAULT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE event (
+    pet_id INT NOT NULL,
+    date DATE NOT NULL,
+    type VARCHAR(15) DEFAULT NULL,
+    remark VARCHAR(255) DEFAULT NULL,
+    KEY pk_pet_id (pet_id),
+    CONSTRAINT event_ibfk_1 FOREIGN KEY (pet_id) REFERENCES pet (id)
+);
+
+
+INSERT INTO pet (name, owner, species, sex, birth_date, death_date)
+VALUES
+    ('Fluffy', 'John Doe', 'Dog', 'm', '2020-01-01', NULL),
+    ('Whiskers', 'Jane Smith', 'Cat', 'f', '2019-05-15', NULL),
+    ('Buddy', 'Mike Johnson', 'Dog', 'm', '2021-03-10', NULL),
+    ('Snowball', 'Emily White', 'Rabbit', 'f', '2022-07-20', NULL),
+    ('Max', 'Chris Brown', 'Parrot', 'm', '2018-12-05', NULL),
+    ('Luna', 'Sara Miller', 'Cat', 'f', '2017-09-08', NULL),
+    ('Rocky', 'Alex Turner', 'Hamster', 'm', '2020-11-25', NULL),
+    ('Coco', 'Emma Davis', 'Dog', 'f', '2019-08-14', NULL),
+    ('Charlie', 'Ryan Clark', 'Guinea Pig', 'm', '2022-02-01', NULL),
+    ('Misty', 'Olivia Adams', 'Bird', 'f', '2021-06-12', NULL);
+
+INSERT INTO event (pet_id, date, type, remark)
+VALUES
+    (1, '2022-02-08', 'Vaccination', 'Annual checkup'),
+    (3, '2022-01-15', 'Checkup', 'Routine health check'),
+    (5, '2021-07-05', 'Feeding', 'Daily feeding schedule'),
+    (2, '2023-03-20', 'Grooming', 'Trimming claws and fur'),
+    (8, '2022-08-30', 'Walk', 'Outdoor exercise'),
+    (4, '2021-12-10', 'Playtime', 'Interactive play session'),
+    (7, '2023-01-02', 'Health Check', 'Regular veterinary visit'),
+    (6, '2022-05-18', 'Medication', 'Prescribed medication'),
+    (10, '2021-09-25', 'Training', 'Basic obedience training'),
+    (9, '2023-04-12', 'Feeding', 'Special diet requirements');
